@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.concurrent.CompletionService;
 
@@ -29,12 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
                         String name = etName.getText().toString().trim();
 
-                        Intent intent = new Intent(MainActivity.this, MyService.class);
+                        if (!name.isEmpty()){
 
-                        intent.putExtra(MyApp.INPUT_KEY, name);
+                            Intent intent = new Intent(MainActivity.this, MyService.class);
 
-                        ContextCompat.startForegroundService(MainActivity.this, intent);
+                            intent.putExtra(MyApp.INPUT_KEY, name);
 
+                            ContextCompat.startForegroundService(MainActivity.this, intent);
+
+                            etName.setText(null);
+
+
+                        }else {
+                            Toast.makeText(MainActivity.this, "Enter your name", Toast.LENGTH_SHORT).show();
+                        }
 
 
                     }
